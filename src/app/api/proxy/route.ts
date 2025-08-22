@@ -9,11 +9,11 @@ export async function GET(request: NextRequest) {
     }
 
     try {
-        // Map endpoint parameters to actual URLs
+        // Map endpoint parameters to actual URLs from Env.Local file
         const urlMap: Record<string, string> = {
-            'unanalyzed-images': 'https://5f2f729312b1481b9b1b4eb9d00bc455.api.mockbin.io/unanalyzed-images',
-            'categories': 'https://f6fe9241e02b404689f62c585d0bd967.api.mockbin.io/categories',
-            'annotations': 'https://eb1b6f8bfab448df91c68bd442d6a968.api.mockbin.io/annotations'
+            'unanalyzed-images': process.env.NEXT_PUBLIC_API_UNANALYZED_IMAGES as string,
+            'categories': process.env.NEXT_PUBLIC_API_CATEGORIES as string,
+            'annotations': process.env.NEXT_PUBLIC_API_ANNOTATIONS as string
         };
 
         const targetUrl = urlMap[endpoint];
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-        const targetUrl = 'https://eb1b6f8bfab448df91c68bd442d6a968.api.mockbin.io/annotations';
+        const targetUrl = process.env.NEXT_PUBLIC_API_ANNOTATIONS as string;
         const body = await request.json();
 
         const response = await fetch(targetUrl, {

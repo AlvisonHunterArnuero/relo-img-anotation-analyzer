@@ -13,7 +13,6 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  Paper,
 } from '@mui/material';
 
 import { Check, Close } from '@mui/icons-material';
@@ -51,9 +50,6 @@ const ImageAnnotation: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const currentImage = images[currentImageIndex];
-
-  // We could pass these to custom hooks in a real app but this
-  // is just a demo code, I don't want to put more on it
   useEffect(() => {
     const loadData = async () => {
       try {

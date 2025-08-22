@@ -9,13 +9,13 @@ import {
   CircularProgress,
   Alert,
   FormControl,
-  Typography,
-  TextField,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
+  Paper,
 } from '@mui/material';
+
 import { Check, Close } from '@mui/icons-material';
 import {
   Image,
@@ -28,6 +28,8 @@ import {
   fetchCategories,
   submitAnnotation,
 } from '../services/api';
+import CustomSnackBar from './CustomSnackBar';
+import FooterImgCarrousel from './FooterImgCarrousel';
 
 const ImageAnnotation: React.FC = () => {
   const [images, setImages] = useState<Image[]>([]);
@@ -50,6 +52,8 @@ const ImageAnnotation: React.FC = () => {
 
   const currentImage = images[currentImageIndex];
 
+  // We could pass these to custom hooks in a real app but this
+  // is just a demo code, I don't want to put more on it
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -74,8 +78,6 @@ const ImageAnnotation: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    //if (!canvasRef.current || !currentImage || !boundingBox) return;
-
     const canvas = canvasRef && canvasRef.current;
     const ctx = canvas?.getContext('2d');
     if (!ctx) return;
@@ -87,7 +89,7 @@ const ImageAnnotation: React.FC = () => {
 
     // Draw bounding box
     ctx.strokeStyle = '#3f51b5';
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 3;
     ctx.strokeRect(
       boundingBox?.topLeftX as number,
       boundingBox?.topLeftY as number,
@@ -126,6 +128,8 @@ const ImageAnnotation: React.FC = () => {
     }
   }, [currentImage]);
 
+  // Canvas Event handlers
+
   const handleMouseDown = (
     e: React.MouseEvent<HTMLCanvasElement>
   ) => {
@@ -137,7 +141,6 @@ const ImageAnnotation: React.FC = () => {
 
     setIsDrawing(true);
     setStartPoint({ x, y });
-    //setBoundingBox(null);
   };
 
   const handleMouseMove = (
@@ -166,7 +169,7 @@ const ImageAnnotation: React.FC = () => {
       );
 
       ctx.strokeStyle = '#3f51b5';
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 3;
       ctx.strokeRect(
         newBoundingBox.topLeftX,
         newBoundingBox.topLeftY,
@@ -266,18 +269,11 @@ const ImageAnnotation: React.FC = () => {
 
   return (
     <>
-      <Typography
-        variant="h6"
-        component="h1"
-        className="text-black w-full mx-auto text-center"
-      >
-        Image Annotation Analyzer
-      </Typography>
       <div className="flex w-full gap-3 justify-between items-start h-full p-4">
         <Box className="flex w-1/2 h-full overflow-hidden">
           <Box className="h-full w-full flex justify-center">
             <Box className="h-full max-h-4/5 w-full flex flex-col cursor-crosshair relative">
-              <div
+              <Box
                 style={{
                   width: '100%',
                   height: '600px',
@@ -305,20 +301,11 @@ const ImageAnnotation: React.FC = () => {
                     pointerEvents: 'auto',
                   }}
                 />
-              </div>
+              </Box>
             </Box>
           </Box>
         </Box>
         <Box className="flex flex-col w-1/2 h-full max-h-4/5 gap-3">
-          {success && (
-            <Alert severity="success" className="mb-4">
-              Annotation submitted successfully!
-            </Alert>
-          )}
-          <TextField
-            className="h-full w-full p-2"
-            value={'Search Options'}
-          />
           <FormControl
             fullWidth
             className="flex-grow scroll-y-auto max-h-4/5 max-w-full"
@@ -365,18 +352,14 @@ const ImageAnnotation: React.FC = () => {
           </Box>
         </Box>
       </div>
-      <Box className="absolute bottom-0 w-screen flex max-h-full gap-3 overflow-x-auto max-w-full">
-        {images.map((img) => (
-          <NextImage
-            key={img.id}
-            width={100}
-            height={60}
-            src={img.url}
-            alt="Footer Images Set"
-            className="border-3 rounded-md border-gray-300 shadow-md hover:cursor-pointer hover:scale-90 transform duration-500 ease-in-out"
-          />
-        ))}
-      </Box>
+      <FooterImgCarrousel
+        images={images}
+        onImageClick={setCurrentImageIndex}
+      />
+      <CustomSnackBar
+        msg="Annotation submitted successfully!"
+        isSuccess={success}
+      />
     </>
   );
 };

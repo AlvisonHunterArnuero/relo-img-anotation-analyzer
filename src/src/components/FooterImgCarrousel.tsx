@@ -3,13 +3,7 @@
 import React from 'react';
 import NextImage from 'next/image';
 import { Box, Container } from '@mui/material';
-import { Image } from '@/types/annotation';
-
-interface FooterImgCarrouselProps {
-  images: Image[];
-  onImageClick: (index: number) => void;
-}
-
+import { FooterImgCarrouselProps } from '@/types/globals';
 const FooterImgCarrousel: React.FC<FooterImgCarrouselProps> = ({
   images,
   onImageClick,

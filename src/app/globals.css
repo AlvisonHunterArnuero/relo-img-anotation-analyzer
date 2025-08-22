@@ -9,7 +9,11 @@
 }
 
 
-@layer components {}
+@layer components {
+  .main-page {
+    @apply pt-6 font-sans flex flex-col justify-center items-center w-full h-screen mx-auto container;
+  }
+}
 
 @layer utilities {}
 

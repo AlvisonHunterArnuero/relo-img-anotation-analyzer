@@ -44,19 +44,43 @@ The application will automatically move to the next image.
 
 
 ## Project Structure
-src/
-  app/
-    globals.css
-    layout.tsx
-    page.tsx
-  components/
-    ImageAnnotation.tsx
-  services/
-    api.ts
-  types/
-    annotation.ts
-  theme.ts
-
+```
+├── README.md
+├── eslint.config.mjs
+├── next-env.d.ts
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── public
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── src
+│   ├── app
+│   │   ├── api
+│   │   │   └── proxy
+│   │   │       └── route.ts
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── src
+│   │   ├── components
+│   │   │   ├── CategoryList.tsx
+│   │   │   ├── CustomSnackBar.tsx
+│   │   │   ├── FooterImgCarrousel.tsx
+│   │   │   └── ImageAnnotation.tsx
+│   │   └── services
+│   │       └── api.ts
+│   ├── theme.ts
+│   └── types
+│       ├── annotation.ts
+│       └── globals.ts
+└── tsconfig.json
+```
 
 ## Technologies Used
 Next.js 15 with App Router

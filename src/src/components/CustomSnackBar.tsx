@@ -1,19 +1,11 @@
-import Snackbar, {
-  SnackbarCloseReason,
-} from '@mui/material/Snackbar';
+import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-
 import { Button, Alert } from '@mui/material';
 import React from 'react';
+import { CustomSnackBarProps } from '@/types/globals';
 
-function CustomSnackBar({
-  msg,
-  isSuccess,
-}: {
-  msg: string;
-  isSuccess: boolean;
-}) {
+const CustomSnackBar: React.FC<CustomSnackBarProps> = ({ msg, isSuccess }) => {
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -22,7 +14,6 @@ function CustomSnackBar({
     }
   }, [isSuccess]);
 
-  // Snackbar for success message
   const handleClose = (
     event: React.SyntheticEvent | Event,
     reason?: SnackbarCloseReason
@@ -30,12 +21,11 @@ function CustomSnackBar({
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
   };
 
   const action = (
-    <React.Fragment>
+    <>
       <Button color="secondary" size="small" onClick={handleClose}>
         UNDO
       </Button>
@@ -47,8 +37,9 @@ function CustomSnackBar({
       >
         <CloseIcon fontSize="small" />
       </IconButton>
-    </React.Fragment>
+    </>
   );
+
   return (
     <Snackbar
       open={open}
@@ -67,6 +58,6 @@ function CustomSnackBar({
       </Alert>
     </Snackbar>
   );
-}
+};
 
 export default CustomSnackBar;

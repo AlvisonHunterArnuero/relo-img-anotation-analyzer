@@ -2,6 +2,8 @@
 
 A Next.js 15 application for annotating images with bounding boxes and categories.
 
+<img width="1266" height="970" alt="image" src="https://github.com/user-attachments/assets/2cd48880-4093-4f2f-a630-4c2193a451ed" />
+
 ## Features
 
 - Fetch and display unanalyzed images from API

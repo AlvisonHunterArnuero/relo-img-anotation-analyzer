@@ -1,7 +1,6 @@
 'use client';
 import ImageAnnotation from '@/src/components/ImageAnnotation';
 import {
-  Paper,
   ThemeProvider,
   CssBaseline,
   Box,
@@ -13,7 +12,7 @@ export default function Home() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box className="bg-gray-800 p-4">
+      <Box className="bg-gray-800 p-2">
         <Typography
           variant="h4"
           component="h1"
@@ -28,9 +27,9 @@ export default function Home() {
           Annotate images with bounding boxes and categories.
         </Typography>
       </Box>
-      <Paper className="main-page">
+      <Box className="main-page">
         <ImageAnnotation />
-      </Paper>
+      </Box>
     </ThemeProvider>
   );
 }

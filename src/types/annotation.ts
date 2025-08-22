@@ -26,3 +26,11 @@ export interface AnnotationRequest {
     imageId: number;
     annotations: AnnotationData[];
 }
+
+export interface CategoryListProps {
+  categories: Category[];
+  selectedId?: Category['id'];
+  handleCategoryChange: (id: Category['id']) => void;
+  label?: string;
+  useAsFormField?: boolean;
+}

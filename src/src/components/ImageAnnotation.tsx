@@ -3,17 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import NextImage from 'next/image';
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Alert,
-  FormControl,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-} from '@mui/material';
+import { Box, Button, CircularProgress, Alert } from '@mui/material';
 
 import { Check, Close } from '@mui/icons-material';
 import {
@@ -29,6 +19,7 @@ import {
 } from '../services/api';
 import CustomSnackBar from './CustomSnackBar';
 import FooterImgCarrousel from './FooterImgCarrousel';
+import CategoryList from './CategoryList';
 
 const ImageAnnotation: React.FC = () => {
   const [images, setImages] = useState<Image[]>([]);
@@ -301,32 +292,13 @@ const ImageAnnotation: React.FC = () => {
             </Box>
           </Box>
         </Box>
-        <Box className="flex flex-col w-1/2 h-full max-h-4/5 gap-3">
-          <FormControl
-            fullWidth
-            className="flex-grow scroll-y-auto max-h-4/5 max-w-full"
-          >
-            <List
-              title="category"
-              className="overflow-y-auto border-1"
-            >
-              {categories.map((category) => (
-                <ListItem
-                  key={category.id}
-                  value={category.id}
-                  disablePadding
-                >
-                  <ListItemButton
-                    onClick={() => handleCategoryChange(category.id)}
-                  >
-                    <ListItemText primary={category.name} />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
-          </FormControl>
-
-          <Box className="mt-4 flex gap-2 items-start justify-between">
+        <Box className="flex flex-col w-1/2 h-full max-h-3/5 gap-6">
+          <CategoryList
+            label="Please Select Category"
+            categories={categories}
+            handleCategoryChange={handleCategoryChange}
+          />
+          <Box className="flex gap-2 items-start justify-between">
             <Button
               variant="outlined"
               color="error"
